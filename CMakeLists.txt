@@ -2,7 +2,9 @@
 add_library(railroad INTERFACE)
 
 target_sources(railroad INTERFACE
+    ${CMAKE_CURRENT_LIST_DIR}/src/locos.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/turnout.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/desktop_layout.cpp
 )
 
 target_include_directories(railroad INTERFACE 
@@ -14,6 +16,7 @@ target_link_libraries(railroad INTERFACE
     hardware_clocks
     hardware_gpio
     hardware_pwm
+    dcc
     misc
 )
 
