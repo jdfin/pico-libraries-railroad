@@ -38,6 +38,7 @@ struct Loco {
 
     // default volume settings
     int v_master;
+    int v_engine;
 
     static const Loco *find_loco(uint32_t sn);
     static const Loco *find_loco(const char *name);
