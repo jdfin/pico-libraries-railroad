@@ -1,4 +1,5 @@
 
+#include "sensor2.h"
 #include "sensor.h"
 #include "turnout.h"
 #include "desktop_layout.h"
@@ -6,9 +7,16 @@
 #include "config.h"
 
 
+Sensor2 sensor2[sensor2_max] = {
+    Sensor2(s0_gpio),
+    Sensor2(s1_gpio),
+    Sensor2(s2_gpio),
+    Sensor2(s3_gpio),
+};
+
+
 Sensor sensor[sensor_max] = {
-    Sensor(s0_gpio), Sensor(s1_gpio), Sensor(s2_gpio), Sensor(s3_gpio),
-    Sensor(s4_gpio), Sensor(s5_gpio), Sensor(s6_gpio), Sensor(s7_gpio),
+    Sensor(s4_gpio),
 };
 
 
@@ -19,44 +27,30 @@ Turnout turnout[turnout_max] = {
 
 
 // sensor in house
-Sensor& sensor_home()
+Sensor2& sensor_home()
 {
-    return sensor[0];
+    return sensor2[0];
 }
 
 
 // sensor at uncoupler
 Sensor& sensor_unc()
 {
-    return sensor[1];
+    return sensor[0];
 }
 
 
-// sensor 50 mm from end of spur
-Sensor& sensor_50(int spur_num)
+// sensor at end of spur
+Sensor2& sensor_spur(int spur_num)
 {
     assert(spur_num == 1 || spur_num == 2 || spur_num == 3);
 
     if (spur_num == 1)
-        return sensor[2];
+        return sensor2[1];
     else if (spur_num == 2)
-        return sensor[4];
+        return sensor2[2];
     else // (spur_num == 3)
-        return sensor[6];
-}
-
-
-// sensor 100 mm from end of spur
-Sensor& sensor_100(int spur_num)
-{
-    assert(spur_num == 1 || spur_num == 2 || spur_num == 3);
-
-    if (spur_num == 1)
-        return sensor[3];
-    else if (spur_num == 2)
-        return sensor[5];
-    else // (spur_num == 3)
-        return sensor[7];
+        return sensor2[3];
 }
 
 
@@ -84,15 +78,15 @@ void line_turnout_1(int spur_num)
 }
 
 
-// distance from uncoupler sensor to 110 mm sensor on spur
+// distance from uncoupler sensor to end of spur
 int unc_to_spur_mm(int spur_num)
 {
     assert(spur_num == 1 || spur_num == 2 || spur_num == 3);
 
     if (spur_num == 1)
-        return s1_s3_mm;
+        return s4_s1_mm;
     else if (spur_num == 2)
-        return s1_s5_mm;
+        return s4_s2_mm;
     else // (spur_num == 3)
-        return s1_s7_mm;
+        return s4_s3_mm;
 }

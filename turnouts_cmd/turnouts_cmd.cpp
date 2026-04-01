@@ -13,17 +13,10 @@
 #include "argv.h"
 #include "str_ops.h"
 #include "sys_led.h"
-// turnouts
+// railroad
+#include "config.h"
+#include "desktop_layout.h"
 #include "turnout.h"
-
-static constexpr int gpio_a0 = 0;
-static constexpr int gpio_b0 = 1;
-static constexpr int gpio_a1 = 2;
-static constexpr int gpio_b1 = 3;
-static constexpr int gpio_p = 4;
-
-static Turnout t0(gpio_a0, gpio_b0);
-static Turnout t1(gpio_a1, gpio_b1);
 
 // A command is a sequence of tokens, ending with newline.
 //
@@ -63,7 +56,7 @@ int main()
 
     argv.verbosity(1);
 
-    Turnout::init(gpio_p);
+    Turnout::init(tp_gpio);
 
     while (true) {
 
@@ -75,19 +68,19 @@ int main()
                 // newline received, try to process command
                 if (argv.argc() == 1) {
                     if (strcasecmp(argv[0], "0A") == 0) {
-                        t0.set(true);
+                        turnout[0].set(true);
                     } else if (strcasecmp(argv[0], "0B") == 0) {
-                        t0.set(false);
+                        turnout[0].set(false);
                     } else if (strcasecmp(argv[0], "1A") == 0) {
-                        t1.set(true);
+                        turnout[1].set(true);
                     } else if (strcasecmp(argv[0], "1B") == 0) {
-                        t1.set(false);
+                        turnout[1].set(false);
                     } else if (strcasecmp(argv[0], "C0") == 0) {
                         for (int i = 0; i < 5; i++) {
-                            t0.set(true, true);
-                            t1.set(true, true);
-                            t0.set(false, true);
-                            t1.set(false, true);
+                            turnout[0].set(true, true);
+                            turnout[1].set(true, true);
+                            turnout[0].set(false, true);
+                            turnout[1].set(false, true);
                         }
                     } else {
                         printf("unrecognized command: ");

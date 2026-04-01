@@ -64,10 +64,10 @@ static Loco locos[] = {
         .f_bell = 1,
         .f_horn = 2,
         .f_engine = 8,
-        .f_squeal = -1,
+        .f_squeal = -1, // might have it, just not mapped
         .f_clank = 3,
         .v_master = 20,
-        .v_engine = -1,
+        .v_engine = 64,
     },
     {
         .sn = 3757749420,
@@ -84,7 +84,7 @@ static Loco locos[] = {
         .f_squeal = 3,
         .f_clank = -1,
         .v_master = 40,
-        .v_engine = -1,
+        .v_engine = 64,
     },
     {
         .sn = 4192888681,
@@ -98,10 +98,10 @@ static Loco locos[] = {
         .f_bell = 1,
         .f_horn = 2,
         .f_engine = 8,
-        .f_squeal = -1,
-        .f_clank = -1,
+        .f_squeal = 7,
+        .f_clank = 3,
         .v_master = 40,
-        .v_engine = 70, // default=192
+        .v_engine = 64, // default=192
     },
 };
 

@@ -16,6 +16,10 @@ public:
         gpio_set_dir(_gpio, GPIO_IN);
     }
 
+    void init() const
+    {
+    }
+
     operator bool() const
     {
         return !gpio_get(_gpio);

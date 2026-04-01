@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <climits>
 #include <cstdio>
 
 #include "pico/stdlib.h"
@@ -20,7 +21,8 @@ public:
     Sensor2(int gpio) :
         _gpio(gpio),
         _slice(pwm_gpio_to_slice_num(gpio)),
-        _count(0),
+        _count{0},
+        _count_idx(0),
         _cb(nullptr),
         _cb_arg(0)
     {
@@ -52,9 +54,13 @@ public:
         pwm_set_enabled(_slice, true);
     }
 
+    // return most recent count, no averaging
     uint16_t count() const
     {
-        return (_count + avg_len / 2) / avg_len;
+        int idx = _count_idx;
+        if (idx < 0)
+            idx = avg_len - 1;
+        return _count[idx];
     }
 
     int dist_mm() const
@@ -63,12 +69,20 @@ public:
         // * pulse width of 2000_us means nothing detected
         // * d_mm = 3_mm / 4_us * (t_us - 1000_us)
 
-        uint16_t cnt = count();
+        // If everything in _count[] is a valid reading, return the average,
+        // else return "nothing detected".
 
-        if (cnt >= 1990)
-            return INT_MAX; // "nothing detected"
+        uint16_t sum = 0;
+        constexpr int count_margin = 10;
+        for (int i = 0; i < avg_len; i++) {
+            if (_count[i] < (1000 - count_margin) || _count[i] > (2000 - count_margin))
+                return INT_MAX; // "nothing detected"
+            sum += _count[i];
+        }
 
-        return ((cnt - 1000) * 3 + 2) / 4;
+        int avg = (sum + avg_len / 2) / avg_len; // round to nearest
+
+        return (avg - 1000) * 3 / 4;
     }
 
     uint slice() const
@@ -89,7 +103,8 @@ private:
     int _gpio;
     uint _slice;
     static constexpr int avg_len = 4;
-    uint32_t _count;
+    uint16_t _count[avg_len];
+    int _count_idx;
 
     // callback for every count update, every 9-20 msec
     void (*_cb)(uint16_t count, intptr_t arg);
@@ -100,7 +115,8 @@ private:
     {
         uint16_t new_count = pwm_get_counter(_slice);
         pwm_set_counter(_slice, 0);
-        _count = (_count * (avg_len - 1) + avg_len / 2) / avg_len + new_count;
+        _count_idx = (_count_idx + 1) % avg_len;
+        _count[_count_idx] = new_count;
         if (_cb != nullptr)
             _cb(new_count, _cb_arg);
     }
