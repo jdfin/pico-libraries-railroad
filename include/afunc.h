@@ -22,11 +22,11 @@ public:
     }
 
     // schedule a function change at a given time
-    bool put(uint32_t time_us, int loco, int func, bool on)
+    bool put(int32_t time_us, int loco, int func, bool on)
     {
         if (full())
             return false;
-        _afunc[_put].time_us = int32_t(time_us);
+        _afunc[_put].time_us = time_us;
         _afunc[_put].loco = loco;
         _afunc[_put].func = func;
         _afunc[_put].on = on;
