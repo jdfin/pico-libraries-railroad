@@ -18,8 +18,8 @@ struct Loco {
         int dcc;
         int mms;
     } *speeds;
-    int speed_dcc(int mms) const;
-    int speed_mms(int dcc) const;
+    int mms_to_dcc(int mms) const;
+    int dcc_to_mms(int dcc) const;
 
     // stop distance in mm from speed in mm/s (when cv4 = 0)
     // d(mm) = s(mm/s) * stop_mm_num / stop_mm_den

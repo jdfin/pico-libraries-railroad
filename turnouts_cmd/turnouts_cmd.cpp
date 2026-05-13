@@ -68,19 +68,19 @@ int main()
                 // newline received, try to process command
                 if (argv.argc() == 1) {
                     if (strcasecmp(argv[0], "0A") == 0) {
-                        turnout[0].set(true);
+                        Desktop::turnout[0].set(true);
                     } else if (strcasecmp(argv[0], "0B") == 0) {
-                        turnout[0].set(false);
+                        Desktop::turnout[0].set(false);
                     } else if (strcasecmp(argv[0], "1A") == 0) {
-                        turnout[1].set(true);
+                        Desktop::turnout[1].set(true);
                     } else if (strcasecmp(argv[0], "1B") == 0) {
-                        turnout[1].set(false);
+                        Desktop::turnout[1].set(false);
                     } else if (strcasecmp(argv[0], "C0") == 0) {
                         for (int i = 0; i < 5; i++) {
-                            turnout[0].set(true, true);
-                            turnout[1].set(true, true);
-                            turnout[0].set(false, true);
-                            turnout[1].set(false, true);
+                            Desktop::turnout[0].set(true, true);
+                            Desktop::turnout[1].set(true, true);
+                            Desktop::turnout[0].set(false, true);
+                            Desktop::turnout[1].set(false, true);
                         }
                     } else {
                         printf("unrecognized command: ");

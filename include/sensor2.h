@@ -63,20 +63,34 @@ public:
         return _count[idx];
     }
 
+    static constexpr int infinity = INT_MAX;
+
     int dist_mm() const
     {
         // Pololu 4064:
         // * pulse width of 2000_us means nothing detected
-        // * d_mm = 3_mm / 4_us * (t_us - 1000_us)
+
+        // _count[] is us (PWM is clocked at 1 MHz).
+        //
+        // For 50mm max range sensors:
+        //   d_mm = 3_mm / 4_us * (t_us - 1000_us)
+        //   valid count range 1000...1667
+        // For 35mm max range sensors:
+        //   d_mm = 2_mm / 4_us * (t_us - 1000_us)
+        //   valid count range 1000...1700
+        // For 15mm max range sensors:
+        //   d_mm = 1_mm / 4_us * (t_us - 1000_us)
+        //   valid count range 1000...1600
 
         // If everything in _count[] is a valid reading, return the average,
         // else return "nothing detected".
 
         uint16_t sum = 0;
-        constexpr int count_margin = 10;
+        constexpr int lo_margin = 10;   // >= 990 considered valid
+        constexpr int hi_margin = 200;  // <= 1800 considered valid
         for (int i = 0; i < avg_len; i++) {
-            if (_count[i] < (1000 - count_margin) || _count[i] > (2000 - count_margin))
-                return INT_MAX; // "nothing detected"
+            if (_count[i] < (1000 - lo_margin) || _count[i] > (2000 - hi_margin))
+                return infinity;
             sum += _count[i];
         }
 

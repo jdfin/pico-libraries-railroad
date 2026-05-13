@@ -1,11 +1,13 @@
 
-#include "sensor2.h"
-#include "sensor.h"
-#include "turnout.h"
 #include "desktop_layout.h"
 
 #include "config.h"
+#include "sensor.h"
+#include "sensor2.h"
+#include "switch.h"
+#include "turnout.h"
 
+namespace Desktop {
 
 Sensor2 sensor2[sensor2_max] = {
     Sensor2(s0_gpio),
@@ -26,22 +28,42 @@ Turnout turnout[turnout_max] = {
 };
 
 
+Switch sw[switch_max] = {
+    Switch(sw0_gpio),
+    Switch(sw1_gpio),
+};
+
+
+void init()
+{
+    for (int i = 0; i < Desktop::sensor_max; i++)
+        Desktop::sensor[i].init();
+
+    for (int i = 0; i < Desktop::sensor2_max; i++)
+        Desktop::sensor2[i].init();
+
+    Turnout::init(tp_gpio);
+
+    // switches: nothing to do
+}
+
+
 // sensor in house
-Sensor2& sensor_home()
+Sensor2 &sensor_home()
 {
     return sensor2[0];
 }
 
 
 // sensor at uncoupler
-Sensor& sensor_unc()
+Sensor &sensor_unc()
 {
     return sensor[0];
 }
 
 
 // sensor at end of spur
-Sensor2& sensor_spur(int spur_num)
+Sensor2 &sensor_spur(int spur_num)
 {
     assert(spur_num == 1 || spur_num == 2 || spur_num == 3);
 
@@ -90,3 +112,6 @@ int unc_to_spur_mm(int spur_num)
     else // (spur_num == 3)
         return s4_s3_mm;
 }
+
+
+}; // namespace Desktop

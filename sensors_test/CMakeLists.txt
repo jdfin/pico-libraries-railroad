@@ -44,3 +44,25 @@ target_link_libraries(sensor2_test PRIVATE
 )
 
 pico_add_extra_outputs(sensor2_test)
+
+# sensor2_test2
+
+add_executable(sensor2_test2
+    sensor2_test2.cpp
+)
+
+pico_enable_stdio_uart(sensor2_test2 0)
+pico_enable_stdio_usb(sensor2_test2 1)
+
+target_include_directories(sensor2_test2 PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}
+)
+
+target_link_libraries(sensor2_test2 PRIVATE
+    pico_stdlib
+    pico_stdio_usb
+    misc
+    railroad
+)
+
+pico_add_extra_outputs(sensor2_test2)

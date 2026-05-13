@@ -137,7 +137,7 @@ Status Loco::read_sn(int loco_id, uint32_t &sn, int attempts)
 
 
 // given a (desired) speed in mm/s, return the dcc speed that achieves that
-int Loco::speed_dcc(int mms) const
+int Loco::mms_to_dcc(int mms) const
 {
     int dir = +1;
     if (mms < 0) {
@@ -165,7 +165,7 @@ int Loco::speed_dcc(int mms) const
 }
 
 // given a speed in dcc, return the actual speed in mm/s
-int Loco::speed_mms(int dcc) const
+int Loco::dcc_to_mms(int dcc) const
 {
     int dir = +1;
     if (dcc < 0) {
