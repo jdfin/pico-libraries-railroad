@@ -9,6 +9,7 @@
 #include "pico/stdlib.h"
 #include "pico/time.h" // sleep_ms
 //
+#include "config.h"
 #include "sensor2.h"
 
 
@@ -40,10 +41,10 @@
 // pwm sensors only (not the uncoupler S4)
 
 static Sensor2 sensor[] = {
-    Sensor2(5),
-    Sensor2(7),
-    Sensor2(9),
-    Sensor2(11),
+    Sensor2(s0_gpio),
+    Sensor2(s1_gpio),
+    Sensor2(s2_gpio),
+    Sensor2(s3_gpio),
 };
 
 static constexpr int sensor_max = sizeof(sensor) / sizeof(sensor[0]);

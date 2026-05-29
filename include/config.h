@@ -1,8 +1,11 @@
 #pragma once
 
 #include "hardware/uart.h"
+#include "hardware/i2c.h"
 
-#define HW_VERSION 1
+// 1: stacked boards
+// 2: single-board
+#define HW_VERSION 2
 
 #if (HW_VERSION == 2)
 
@@ -55,11 +58,11 @@ constexpr int t1b_gpio = 20;
 constexpr int tp_gpio = 16; // pwm slice 0 channel A
 
 // Sensors
-constexpr int s0_gpio = 13; // pwm sensor; slice 2 channel B
-constexpr int s1_gpio = 11; // pwm sensor; slice 3 channel B
-constexpr int s2_gpio = 9;  // pwm sensor; slice 4 channel B
-constexpr int s3_gpio = 7;  // pwm sensor; slice 5 channel B
-constexpr int s4_gpio = 5;  // digital sensor
+constexpr int s0_gpio = 13; // pwm sensor, in house
+constexpr int s1_gpio = 11; // pwm sensor, end of spur 1
+constexpr int s2_gpio = 9;  // pwm sensor, end of spur 2
+constexpr int s3_gpio = 7;  // pwm sensor, end of spur 3
+constexpr int s4_gpio = 5;  // digital sensor, uncoupler
 
 // Switches
 constexpr int sw0_gpio = 6;
@@ -67,6 +70,12 @@ constexpr int sw1_gpio = 4;
 
 // WS2812 LEDs
 constexpr int ws2812_gpio = 12;
+
+// Display
+i2c_inst_t *const disp_i2c_dev = i2c1;
+constexpr uint8_t disp_i2c_adrs = 0x3c;
+constexpr int disp_sda_gpio = 14;
+constexpr int disp_scl_gpio = 15;
 
 #elif (HW_VERSION == 1)
 

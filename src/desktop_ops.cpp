@@ -230,7 +230,8 @@ void uncouple(int loco_id, const Loco *loco)
 // * Loco creeping forward
 // Errors:
 // * Sometimes the cars recouple on the way back (esp. the tank car to
-//   spur 2). If that happens, the 110 mm sensor goes inactive)
+//   spur 2). If that happens, we see the car pulling away after it was
+//   supposedly left behind.
 // Return:
 // *  true if the car was left behind
 // *  false if the car is still coupled
@@ -299,10 +300,10 @@ bool spot(int loco_id, const Loco *loco, int spur_num)
     // the car does not move.
     int dist_mm = Desktop::sensor_spur(spur_num).dist_mm();
     DccApi::loco_speed_set(loco_id, loco->mms_to_dcc(creep_mms));
-    _loop(mm_to_us(30, creep_mms));
+    _loop(mm_to_us(75, creep_mms)); // 30 mm is not enough
     // If the car did not move too much, it is not coupled; return true.
     int now_mm = Desktop::sensor_spur(spur_num).dist_mm();
-    bool okay = (now_mm - dist_mm) < 15;
+    bool okay = ((now_mm != Sensor2::infinity) && ((now_mm - dist_mm) < 25));
 
     printf("spot(%d): returning %s (%d mm to %d mm)\n", spur_num,
            okay ? "true" : "false", dist_mm, now_mm);
