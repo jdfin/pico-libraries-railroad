@@ -34,6 +34,53 @@ static const Loco::Speed speeds_sp2265[] = {
     {95, 314}, {100, 329}, {105, 337}, {110, 341}, {0, 0},
 };
 
+static Status setup_up852(int loco_id)
+{
+    Status s;
+    const int attempts = 3;
+
+    // Turn on AUX1.1 (numberboard lights) independent of F8, and turn them off with F14
+    // CV31 = 16, CV32 = 4, CV307 = 0 (row 20 CV-C, was 16, “F8 on”)
+    // CV31 = 16, CV32 = 4, CV309 remains 2 (row 20 CV-E, “F14 off”)
+    s = DccApi::loco_cv_val_set(loco_id, 31, 16, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 32, 4, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 307, 0, attempts);
+    if (s != Status::Ok)
+        return s;
+
+    // Turn on AUX5 (track and walkway lights) independent of F8, and turn them off with F14
+    // CV31 = 16, CV32 = 4, CV325 = 2 (row 21 CV-E, was 0, “F14 off”)
+    // CV31 = 16, CV32 = 9, CV321 = 64 (row 21 CV-K, was 0, “AUX5 on”)
+    // CV31 = 16, CV32 = 8, CV417 = 0 (row 11 CV-K, was 64)
+    s = DccApi::loco_cv_val_set(loco_id, 31, 16, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 32, 4, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 325, 2, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 32, 9, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 321, 64, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 32, 8, attempts);
+    if (s != Status::Ok)
+        return s;
+    s = DccApi::loco_cv_val_set(loco_id, 417, 0, attempts);
+    if (s != Status::Ok)
+        return s;
+
+    return Status::Ok;
+}
+
 static Loco locos[] = {
     {
         .sn = 4195122288,
@@ -51,6 +98,7 @@ static Loco locos[] = {
         .f_clank = -1,
         .v_master = -1,
         .v_engine = -1,
+        .setup = nullptr,
     },
     {
         .sn = 3757438420,
@@ -68,6 +116,7 @@ static Loco locos[] = {
         .f_clank = 3,
         .v_master = 20,
         .v_engine = 64,
+        .setup = setup_up852,
     },
     {
         .sn = 3757749420,
@@ -85,6 +134,7 @@ static Loco locos[] = {
         .f_clank = -1,
         .v_master = 40,
         .v_engine = 64,
+        .setup = nullptr,
     },
     {
         .sn = 4192888681,
@@ -102,6 +152,7 @@ static Loco locos[] = {
         .f_clank = 3,
         .v_master = 40,
         .v_engine = 64, // default=192
+        .setup = nullptr,
     },
 };
 

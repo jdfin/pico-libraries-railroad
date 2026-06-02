@@ -40,6 +40,9 @@ struct Loco {
     int v_master;
     int v_engine;
 
+    // extra initialization, or nullptr
+    DccApi::Status (*setup)(int loco_id);
+
     static const Loco *find_loco(uint32_t sn);
     static const Loco *find_loco(const char *name);
 };
