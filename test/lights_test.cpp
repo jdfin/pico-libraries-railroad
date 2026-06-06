@@ -8,11 +8,11 @@
 #include "pico/stdlib.h"
 #include "pico/time.h" // sleep_ms
 // railroad
-#include "config.h"
+#include "railroad/config.h"
 // ws2812
-#include "ws2812.h"
+#include "ws2812/ws2812.h"
 // railroad
-#include "lights.h"
+#include "railroad/lights.h"
 
 // lights is a strip of ws2812; use four of them
 static Ws2812 ws2812(ws2812_gpio, 4);

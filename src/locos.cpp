@@ -1,10 +1,10 @@
 
 #include <cstring>
 // dcc
-#include "dcc_api.h"
+#include "dcc/dcc_api.h"
 using Status = DccApi::Status;
 //
-#include "locos.h"
+#include "railroad/locos.h"
 
 static const Loco::Speed speeds_ml560[] = {
     {5, 18},   {10, 36},  {15, 54},  {20, 72},  {25, 88},  {30, 103}, {35, 121},

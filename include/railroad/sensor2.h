@@ -10,7 +10,7 @@
 #include "hardware/gpio.h"
 #include "hardware/pwm.h"
 //
-#include "gpio_extra.h"
+#include "misc/gpio_extra.h"
 
 
 class Sensor2

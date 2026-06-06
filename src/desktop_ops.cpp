@@ -3,11 +3,11 @@
 #include <cstdio>
 #include <cstdint>
 // dcc
-#include "dcc_api.h"
+#include "dcc/dcc_api.h"
 // railroad
-#include "locos.h"
-#include "desktop_layout.h"
-#include "desktop_ops.h"
+#include "railroad/locos.h"
+#include "railroad/desktop_layout.h"
+#include "railroad/desktop_ops.h"
 
 
 namespace DesktopOps {

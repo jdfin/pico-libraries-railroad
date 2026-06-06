@@ -8,10 +8,10 @@
 #include "pico/stdlib.h"
 #include "pico/time.h" // sleep_ms
 // dcc
-#include "dcc_api.h"
+#include "dcc/dcc_api.h"
 // railroad
-#include "config.h"
-#include "volume.h"
+#include "railroad/config.h"
+#include "railroad/volume.h"
 
 // need one loco with sound on the track
 

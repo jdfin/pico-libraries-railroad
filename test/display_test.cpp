@@ -8,9 +8,9 @@
 #include "pico/stdlib.h"
 #include "pico/time.h" // sleep_ms
 // railroad
-#include "config.h"
+#include "railroad/config.h"
 // railroad
-#include "display.h"
+#include "railroad/display.h"
 
 static Display display;
 

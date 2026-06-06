@@ -10,13 +10,13 @@
 #include "pico/stdlib.h"
 #include "pico/time.h"
 // misc
-#include "argv.h"
-#include "str_ops.h"
-#include "sys_led.h"
+#include "misc/argv.h"
+#include "misc/str_ops.h"
+#include "misc/sys_led.h"
 // railroad
-#include "config.h"
-#include "desktop_layout.h"
-#include "turnout.h"
+#include "railroad/config.h"
+#include "railroad/desktop_layout.h"
+#include "railroad/turnout.h"
 
 // A command is a sequence of tokens, ending with newline.
 //

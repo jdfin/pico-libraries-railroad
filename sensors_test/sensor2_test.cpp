@@ -9,8 +9,8 @@
 #include "pico/stdlib.h"
 #include "pico/time.h" // sleep_ms
 //
-#include "config.h"
-#include "sensor2.h"
+#include "railroad/config.h"
+#include "railroad/sensor2.h"
 
 
 //  PWM            +-----| USB |-----+            PWM

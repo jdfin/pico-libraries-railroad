@@ -5,7 +5,7 @@
 //
 #include "hardware/gpio.h"
 //
-#include "ws2812.h"
+#include "ws2812/ws2812.h"
 
 
 class Lights

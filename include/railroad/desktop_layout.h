@@ -1,9 +1,9 @@
 #pragma once
 
-#include "sensor.h"
-#include "sensor2.h"
-#include "turnout.h"
-#include "switch.h"
+#include "railroad/sensor.h"
+#include "railroad/sensor2.h"
+#include "railroad/turnout.h"
+#include "railroad/switch.h"
 
 namespace Desktop {
 

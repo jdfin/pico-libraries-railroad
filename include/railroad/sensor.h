@@ -3,7 +3,7 @@
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
 //
-#include "gpio_extra.h"
+#include "misc/gpio_extra.h"
 
 
 class Sensor

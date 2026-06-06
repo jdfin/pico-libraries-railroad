@@ -8,14 +8,14 @@
 #include "pico/stdlib.h"
 #include "pico/time.h" // sleep_ms
 // misc
-#include "sys_led.h"
+#include "misc/sys_led.h"
 // dcc
-#include "dcc_api.h"
+#include "dcc/dcc_api.h"
 using Status = DccApi::Status;
 // railroad
-#include "config.h"
-#include "desktop_layout.h"
-#include "locos.h"
+#include "railroad/config.h"
+#include "railroad/desktop_layout.h"
+#include "railroad/locos.h"
 
 #if 0
 

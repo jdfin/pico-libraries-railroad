@@ -3,13 +3,13 @@
 // pico
 #include "pico/stdlib.h"
 // misc
-#include "i2c_dev.h"
+#include "misc/i2c_dev.h"
 // oled
-#include "chicago_12.h"
-#include "font.h"
-#include "oled.h"
+#include "oled/chicago_12.h"
+#include "oled/font.h"
+#include "oled/oled.h"
 // railroad
-#include "config.h"
+#include "railroad/config.h"
 
 
 class Display
