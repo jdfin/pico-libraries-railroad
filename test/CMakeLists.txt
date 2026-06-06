@@ -1,6 +1,23 @@
 
 add_compile_options(-Wall -Wextra -Werror)
 
+# display_test
+
+add_executable(display_test
+    display_test.cpp
+)
+
+pico_enable_stdio_uart(display_test 0)
+pico_enable_stdio_usb(display_test 1)
+
+target_link_libraries(display_test PRIVATE
+    pico_stdlib
+    pico_stdio_usb
+    railroad
+)
+
+pico_add_extra_outputs(display_test)
+
 # lights_test
 
 add_executable(lights_test
@@ -19,19 +36,20 @@ target_link_libraries(lights_test PRIVATE
 
 pico_add_extra_outputs(lights_test)
 
-# display_test
+# volume_test
 
-add_executable(display_test
-    display_test.cpp
+add_executable(volume_test
+    volume_test.cpp
 )
 
-pico_enable_stdio_uart(display_test 0)
-pico_enable_stdio_usb(display_test 1)
+pico_enable_stdio_uart(volume_test 0)
+pico_enable_stdio_usb(volume_test 1)
 
-target_link_libraries(display_test PRIVATE
+target_link_libraries(volume_test PRIVATE
     pico_stdlib
     pico_stdio_usb
+    dcc
     railroad
 )
 
-pico_add_extra_outputs(display_test)
+pico_add_extra_outputs(volume_test)

@@ -7,6 +7,7 @@ target_sources(railroad INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src/lights.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/locos.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/turnout.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/volume.cpp
 )
 
 target_include_directories(railroad INTERFACE 
